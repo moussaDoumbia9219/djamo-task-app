@@ -16,6 +16,7 @@ import { MassiveModule } from '@nestjsplus/massive';
         'ec2-23-23-128-222.compute-1.amazonaws.com',
       port: 5432,
       database: process.env.POSTGRES_DATABASE || 'df71n0m8v06anb',
+      ssl: true,
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     TodoModule,
