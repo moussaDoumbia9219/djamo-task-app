@@ -4,19 +4,18 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.APP_PORT || 3000
-  app.setGlobalPrefix('api')
+  const port = process.env.APP_PORT || 3000;
 
   const options = new DocumentBuilder()
-    .setTitle('Djamo Tasks API')  
+    .setTitle('Djamo Tasks API')
     .setDescription('Simple api made for djamo technical tests')
     .setVersion('1.0')
     .addTag('djamoTasks')
-    .build()
+    .build();
 
-  const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('api', app, document)
-  
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
+
   await app.listen(3000);
 }
 bootstrap();

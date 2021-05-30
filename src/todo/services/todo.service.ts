@@ -38,11 +38,13 @@ export class TodoService {
     return todo;
   }
 
-  async deleteTodoById(id: number): Promise<void> {
+  async deleteTodoById(id: number): Promise<string> {
     const todo = await this.todoRepository.delete({ id });
 
     if (todo.affected === 0) {
       throw new NotFoundException(`This ${id} is not found`);
     }
+
+    return 'todo deleted';
   }
 }
