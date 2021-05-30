@@ -2,11 +2,14 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: process.env.POSTGRES_HOST || 'localhost',
+  host:
+    process.env.POSTGRES_HOST || 'ec2-23-23-128-222.compute-1.amazonaws.com',
   port: +process.env.POSTGRES_PORT || 5432,
-  username: process.env.DB_USERNAME || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  database: process.env.POSTGRES_DB || 'djamotodo',
+  username: process.env.DB_USERNAME || 'opzchgufhbrphp',
+  password:
+    process.env.DB_PASSWORD ||
+    '842579378d06638ff42bffafd069ab22fe5aa233be4d53cbc74dc089570a8ba0',
+  database: process.env.POSTGRES_DB || 'df71n0m8v06anb',
   entities: [__dirname + '/**/*.entity.ts', __dirname + '/**/*.entity.js'],
   migrationsRun: false,
   logging: true,
