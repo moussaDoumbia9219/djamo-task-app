@@ -19,12 +19,12 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   cli: {
     migrationsDir: 'src/migration',
   },
-  ssl: true,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
+  // ssl: true,
+  // extra: {
+  //   ssl: {
+  //     rejectUnauthorized: false,
+  //   },
+  // },
 };
 
 export = typeOrmConfig;
