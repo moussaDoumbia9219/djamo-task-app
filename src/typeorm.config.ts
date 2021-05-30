@@ -24,9 +24,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   },
   ssl: true,
   extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    ssl: true,
   },
 };
 
