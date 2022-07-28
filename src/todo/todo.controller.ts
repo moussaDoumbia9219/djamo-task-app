@@ -1,3 +1,7 @@
+import { UpdateTaskCommand } from './commands/impl/update-task.command';
+import { AddTaskCommand } from './commands/impl/add-task.command';
+import { GetTaskByIdQuery } from './queries/impl/get-task-by-id.query';
+import { ListTasksQuery } from './queries/impl/list-tasks.query';
 import {
   Body,
   Controller,
@@ -11,42 +15,48 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { TodoDto } from './dto/todo.dto';
 import { Todo } from './entity/todo.entity';
 import { TodoService } from './services/todo.service';
+import { DeleteTaskCommand } from './commands/impl/delete-task.command';
 
 @ApiTags('Todo')
 @Controller('todo')
 export class TodoController {
-  constructor(private todoService: TodoService) {}
+  constructor(
+    private todoService: TodoService,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @Get()
-  getAllTodo(): Promise<Todo[]> {
-    return this.todoService.getAllTodo();
+  async getAllTodo(): Promise<Todo[]> {
+    return await this.queryBus.execute(new ListTasksQuery());
   }
 
   @Post()
   @UsePipes(ValidationPipe)
-  createTodo(@Body() todoDto: TodoDto): Promise<Todo> {
-    return this.todoService.createTodo(todoDto);
+  async createTodo(@Body() todoDto: TodoDto): Promise<Todo> {
+    return await this.commandBus.execute(new AddTaskCommand(todoDto));
   }
 
   @Get('/:id')
-  getTodoById(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
-    return this.todoService.getTodoById(id);
+  async getTodoById(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
+    return await this.queryBus.execute(new GetTaskByIdQuery(id));
   }
 
   @Patch('/:id')
-  updateTodoById(
+  async updateTodoById(
     @Param('id', ParseIntPipe) id: number,
     @Body() todoDto: TodoDto,
   ): Promise<Todo> {
-    return this.todoService.updateTodoById(id, todoDto);
+    return await this.commandBus.execute(new UpdateTaskCommand(id, todoDto));
   }
 
   @Delete('/:id')
-  deleteTodoById(@Param('id', ParseIntPipe) id: number): Promise<string> {
-    return this.todoService.deleteTodoById(id);
+  async deleteTodoById(@Param('id', ParseIntPipe) id: number): Promise<string> {
+    return await this.commandBus.execute(new DeleteTaskCommand(id));
   }
 }
