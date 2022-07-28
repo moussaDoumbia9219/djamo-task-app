@@ -1,14 +1,16 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+console.log(process.env);
+
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: process.env.POSTGRES_HOST || 'batyr.db.elephantsql.com',
-  port: +process.env.POSTGRES_PORT || 5432,
-  username: process.env.DB_USERNAME || 'cqzcfpvd',
-  password: process.env.DB_PASSWORD || 'kcM85y95gx4SWNi_aOjptNUobQLbbuOS',
-  database: process.env.POSTGRES_DB || 'cqzcfpvd',
+  host: process.env.POSTGRES_HOST,
+  port: +process.env.POSTGRES_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.POSTGRES_DB,
   entities: [__dirname + '/**/*.entity.ts', __dirname + '/**/*.entity.js'],
-  migrationsRun: false,
+  migrationsRun: true,
   logging: true,
   migrationsTableName: 'migration',
   migrations: [

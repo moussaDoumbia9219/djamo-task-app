@@ -29,11 +29,11 @@ describe('TodoController', () => {
         TypeOrmModule.forFeature([TodoRepository]),
         TypeOrmModule.forRoot({
           type: 'postgres',
-          host: process.env.POSTGRES_HOST || 'localhost',
-          port: +process.env.POSTGRES_PORT || 5432,
-          username: process.env.DB_USERNAME || 'postgres',
-          password: process.env.DB_PASSWORD || 'postgres',
-          database: process.env.POSTGRES_DB || 'djamotodo',
+          host: process.env.POSTGRES_HOST,
+          port: +process.env.POSTGRES_PORT,
+          username: process.env.DB_USERNAME,
+          password: process.env.DB_PASSWORD,
+          database: process.env.POSTGRES_DB,
           entities: [
             __dirname + '/**/*.entity.ts',
             __dirname + '/**/*.entity.js',

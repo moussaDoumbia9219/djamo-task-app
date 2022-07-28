@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  const port = process.env.APP_PORT || 5000;
+  const port = process.env.APP_PORT || 3001;
 
   const options = new DocumentBuilder()
     .setTitle('Djamo Tasks API')
